@@ -8,3 +8,50 @@ Kavita Server will be installed as a Docker Container and Nginx would run on the
 ~$ sudo apt update
 ~$ sudo install nginx -y
 ```
+After this install, try browsing it using wwww.thukee.com. It should display the default Nginx webpage.
+Go to the Nginx configuration file and edit it.
+
+```
+~$ cd /etc/nginx/config.d
+~$ sudo vim web.conf
+```
+Config File:
+
+```
+server {
+    listen 80 default_server;
+    server_name www.thukee.com thukee.com;
+
+    location / {
+        root    /var/www/html;
+        # alias /var/www/html;
+        # alias /usr/share/nginx/html;
+        index   index.html;
+    }
+
+}
+
+server {
+root /var/www/html;
+        listen 80;
+        listen [::]:80;
+        server_name kavita.thukee.com www.kavita.thukee.com;
+        location / {
+            proxy_pass         http://127.0.0.1:5000;
+            proxy_redirect     off;
+            proxy_set_header   Host $host;
+            proxy_set_header   X-Real-IP $remote_addr;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Host $server_name;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+        }
+}
+```
+
+Then reload nginx:
+
+```
+~$ sudo nginx -t
+~$ sudo systemctl restart nginx
+~$ sudo systemctl status nginx
+```
