@@ -1,0 +1,18 @@
+---
+- hosts: vps3
+  become: yes
+
+  tasks:
+  - name: Remove a redis container
+    containers.podman.podman_container:
+      name: sarthak
+      image: httpd
+      state: absent
+  - name: Un-Pull an image
+    containers.podman.podman_image:
+      name: httpd
+      state: absent
+  - name: Removing podman
+    package:
+      name: "podman"
+      state: absent

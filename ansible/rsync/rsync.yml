@@ -1,0 +1,12 @@
+---
+- hosts: vps1
+  #become: true
+  tasks:
+# This specific command is granted su privileges on the destination
+      - name: Synchronize using an alternate rsync command
+        synchronize:
+          src: /home/boyet/Documents/DevOps
+          dest: /home/boyet/
+          archive: yes
+          delete: yes
+          recursive: yes

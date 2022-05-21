@@ -1,0 +1,28 @@
+---
+  - hosts: vps6
+    become: true
+
+    tasks:
+      - name: Remove and stop Apache
+        block:
+          - name: Stop httpd and disable it
+            ansible.builtin.service:
+              name: httpd
+              state: stopped
+
+          - name: Remove httpd and memcached
+            ansible.builtin.yum:
+              name:
+              - httpd
+              - memcached
+              state: absent
+        
+          - name: Remove traffic in public zone for https service
+            ansible.posix.firewalld:
+              zone: public
+              service: http
+              permanent: yes
+              state: disabled
+
+        when: ansible_facts['distribution'] == 'AlmaLinux'
+        ignore_errors: yes

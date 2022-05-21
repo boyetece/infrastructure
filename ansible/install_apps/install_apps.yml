@@ -1,0 +1,36 @@
+---
+- hosts: all
+  become: true
+  
+  tasks:
+    - name: Install EPEL Repo
+      yum:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "AlmaLinux"
+
+    - name: Upgrade the Ubuntu (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+      when: ansible_distribution in ["Debian", "Ubuntu"] 
+
+    - name: install apps package and updates on Ubuntu
+      apt:
+        name: 
+        - ansible
+        - vim
+        state: latest
+        update_cache: yes
+        autoclean: yes
+        autoremove: yes
+      when: ansible_distribution == "Ubuntu"
+
+    - name: install apps package and updates on AlamaLinux
+      dnf:
+        name: 
+        - ansible
+        - vim
+        - rsync
+        state: latest
+        update_cache: yes
+      when: ansible_distribution == "AlmaLinux"

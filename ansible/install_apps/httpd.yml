@@ -1,0 +1,35 @@
+---
+  - hosts: vps6
+    become: true
+
+    tasks:
+      # Install and configure webserver on RHEL/ALMALINUX hosts.
+    - name: Install a list of packages with a list variable
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+        - httpd
+        - httpd-tools
+
+    - name: Copying file into home
+      copy:
+        src: /home/boyet/Documents/DevOps/ANSIBLE/httpd.conf.v2
+        dest: /etc/httpd/conf/httpd.conf
+
+    - name: Start service httpd, if not started
+      ansible.builtin.service:
+        name: httpd
+        state: started
+
+    - name: Enable service httpd, and not touch the state
+      ansible.builtin.service:
+        name: httpd
+        enabled: yes
+        
+    - name: permit traffic in default zone for https service
+      ansible.posix.firewalld:
+        service: http
+        permanent: yes
+        state: enabled

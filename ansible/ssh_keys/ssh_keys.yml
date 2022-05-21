@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+
+  taks:
+  - name: Install SSH key
+    authorized_key:
+    user: boyet
+    state: present
+    key: "{{ lookup('file', '/boyet/.ssh/id_rsa.pub') }}"

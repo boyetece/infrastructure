@@ -1,0 +1,43 @@
+
+1. --ask-pass  [password authentication can also be used where needed.]
+2. --ask-become-pass [If using sudo features and when sudo requires a password.]
+OR
+3. ----ask-pass & --ask-become-pass [can be define as variables in the iventory file or vars file]
+
+$ansible -i ./inventory --list-hosts all
+$ansible -i ./inventory vps1 -m ping -u student -K
+$ansible -i ./inventory vps1 -m setup -u student -K
+$ansible -i ./inventory vps1 -m ping
+$ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+$ansible all --ask-pass -m gather_facts --limit 10.100.1.76 | grep user
+
+SHELL MODULE:
+$ansible -i ./inventory vps1 -m shell -a "df -h"
+$ansible -i ./inventory vps1 -m shell -a "tail -n 3 /etc/passwd"
+$ansible -i ./inventory vps1 -m shell -a "ip ad show dev eth0 | grep ether"
+$ansible -i ./inventory vps1 -m shell -a "ip ad show dev eth0 | grep ether | cut -d' ' -f6" | grep -v ">>"
+
+SCRIPT MODULE:
+$ansible -i ./inventory vps1 -m script -a "./backup.sh" --become -K (this is requide sudo password thus --become ans -K is needed).
+$ansible -i ./inventory vps1 -m script -a "./backup.sh" --become (If inventory file for sudo passwd existed no need to use -K).
+
+
+APT MODULE:
+$ansible -i ./inventory vps1 -m yum -a "name=nmap state=present update_cache=true" --become
+$ansible -i ./inventory vps1 -m yum -a "name=nmap state=absent purge=yes update_cache=true" --become
+$ansible -i ./inventory vps1 -m apt -a "autoremove=yes autoclean=yes" --become
+
+
+SERVICE MODULE:
+$ansible -i ./inventory vps1 -m service -a "name=nginx state=started" --become
+$ansible -i ./inventory vps1 -m service -a "name=nginx state=restarted" --become
+$ansible -i ./inventory vps1 -m service -a "name=nginx state=stopped" --become
+$ansible -i ./inventory vps1 -m service -a "name=nginx enabled=yes" --become
+
+USER/GROUP MODULE:
+$ansible -i ./inventory vps1 -m group -a "name=developers state=present" --become
+$ansible -i ./inventory vps1 -m group -a "name=developers state=absent" --become
+$ansible -i ./inventory vps1 -m user -a "name=boyet state=present groups=developers create_home=yes comment=\"new user\"" --become
+
+$ansible -i ./inventory vps1 -m user -a "name=boyet state=present groups=developers,sudo,adm create_home=yes comment=\"new user\" shell=/bin/bash generate_ssh_key=yes ssh_key-bits=2048 --become
+

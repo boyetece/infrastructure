@@ -1,0 +1,34 @@
+---
+  - hosts: vps6
+    become: true
+
+    tasks:
+      - name: Install, configure, and start Apache
+        block:
+          - name: Install httpd and memcached
+            ansible.builtin.yum:
+              name:
+              - httpd
+              - memcached
+              state: present
+
+          - name: Apply the httpd config template
+            ansible.builtin.template:
+              src: templates/httpd.conf
+              dest: /etc/httpd/conf/httpd.conf
+
+          - name: Start service httpd and enable it
+            ansible.builtin.service:
+              name: httpd
+              state: started
+              enabled: True
+        
+          - name: permit traffic in default zone for https service
+            ansible.posix.firewalld:
+              zone: public
+              service: http
+              permanent: yes
+              state: enabled
+
+        when: ansible_facts['distribution'] == 'AlmaLinux'
+        ignore_errors: yes

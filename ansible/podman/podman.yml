@@ -1,0 +1,30 @@
+---
+- hosts: vps3
+  become: yes
+  
+  tasks:
+  - name: installing podman
+    package:
+      name: "podman"
+      state: present
+  - name: Pull an image
+    containers.podman.podman_image:
+      name: httpd
+  - name: Copying file into home
+    copy:
+      src: /home/boyet/Documents/DevOps/ANSIBLE/index.html
+      dest: /home
+      mode: '0644'
+  - name: Re-create a redis container
+    containers.podman.podman_container:
+      name: sarthak
+      image: httpd
+      state: started
+      detach: true
+      exposed_ports:
+        - 80
+      ports:
+        - 4444:80
+      volumes: /home/:/usr/local/apache2/htdocs/
+
+#https://www.redhat.com/sysadmin/automate-podman-ansible

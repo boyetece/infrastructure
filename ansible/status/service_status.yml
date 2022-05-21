@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: "Populate Service Facts"
+    service_facts:
+  - name: "See the service <podman> facts as they are"
+    debug:
+      msg: "{{ansible_facts.services['podman.service'].state}}"

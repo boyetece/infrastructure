@@ -1,0 +1,12 @@
+---
+
+- hosts: vps1
+  tasks:
+      name: daily-cron-jobs
+      cron:
+          hours: 4
+          day:
+          minute:
+          month:
+          weekday:
+          job: ./Documents/RHCSA/ANSIBLE/cron.sh

@@ -1,0 +1,12 @@
+---
+  - hosts: vps1
+    become: true
+    tasks:
+
+    - name: Check Server Disk Usage
+      ansible.builtin.script:
+        cmd: /home/boyet/Documents/DevOps/SCRIPTS/alert2.sh
+      args:
+      register: result
+    - debug:
+        var: result

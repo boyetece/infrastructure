@@ -1,0 +1,19 @@
+# NOTE: WHEN REMOVING USER, USE REVERSE ORDER OF THE TASKS AND REPLACE STATE TO absent:
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Create Group
+      tags: always
+      group:
+        name: support
+        state: present
+
+    - name: Create User
+      tags: always
+      user:
+        name: luke
+        group: support
+        createhome: yes
+        state: present
