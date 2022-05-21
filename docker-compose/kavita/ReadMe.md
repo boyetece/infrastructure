@@ -1,15 +1,15 @@
 # Preparing for Kavita Infrastructure #
 
-Infrastructure for this project must need to set up due to Cloudflare's non-support for non-standard port assigned to Kavita Server port 5000. In this setup, we need Nginx to do a reverse proxy for Kavita on port 5000, exposing Nginx port 80 for Kavita. With this, we can point our DNS Cloudflare record to the Linode instance with standard port 80.
+Infrastructure for this project must need to set up due to Cloudflare's non-support for non-standard port assigned to Kavita Server port 5000. In this setup, we need nginx to do a reverse proxy for Kavita on port 5000, exposing nginx port 80 for Kavita. With this, we can point our DNS Cloudflare record to the VPS instance with standard port 80.
 
-Kavita Server will be installed as a Docker Container and Nginx would run on the localhost itself.  With will install the Nginx first then we will continue installing Kavita Server in our part 2 documentation.
+Kavita Server will be installed as a Docker Container and nginx would run on the localhost itself.  With will install the nginx first then we will continue installing Kavita Server in our part 2 documentation.
 
 ```
 ~$ sudo apt update
 ~$ sudo install nginx -y
 ```
-After this install, try browsing it using wwww.thukee.com. It should display the default Nginx webpage.
-Go to the Nginx configuration file and edit it.
+After this install, try browsing it using wwww.YOURWEBSITE.com. It should display the default Nginx webpage.
+Go to the nginx configuration file and edit it.
 
 ```
 ~$ cd /etc/nginx/config.d
@@ -20,7 +20,7 @@ Config File:
 ```
 server {
     listen 80 default_server;
-    server_name www.thukee.com thukee.com;
+    server_name www.YOURWEBSITE.com YOURWEBSITE.com;
 
     location / {
         root    /var/www/html;
@@ -35,7 +35,7 @@ server {
 root /var/www/html;
         listen 80;
         listen [::]:80;
-        server_name kavita.thukee.com www.kavita.thukee.com;
+        server_name SUBDOMAIN.YOURWEBSITE.com www.SUBDOMAIN.YOURWEBSITE.com;
         location / {
             proxy_pass         http://127.0.0.1:5000;
             proxy_redirect     off;
