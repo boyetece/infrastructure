@@ -4,5 +4,5 @@ Infrastructure for this project must need to set up due to Cloudflare's non-supp
 
 Kavita Server will be installed as a Docker Container and Nginx would run on the localhost itself.  With will install the Nginx first then we will continue installing Kavita Server in our part 2 documentation.
 
-' ~$ sudo apt update '
-' ~$ sudo install nginx -y ' 
+` ~$ sudo apt update `
+` ~$ sudo install nginx -y `
