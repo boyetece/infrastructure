@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Deploy yacht
+      community.docker.docker_container:
+        name: yacht
+        image: selhostedpro/yacht
+        ports:
+          - "8080:8080"
+        volumes:
+          - yacht:/config
+          - /var/run/docker.sock:/var/run/docker.sock
+        restart_policy: always
