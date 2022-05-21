@@ -9,8 +9,8 @@
       update_cache: yes
   - name: copy fail2ban configfiles
     copy:
-      src: configfiles/sshd-default.conf
-      dest: /etc/fail2ban/jail.d/sshd-default.conf
+      src: configfiles/sshd_default.conf
+      dest: /etc/fail2ban/jail.d/sshd_default.conf
   - name: restart fail2ban
     systemd:
       state: restarted
