@@ -6,7 +6,7 @@ services:
             - ./manga:/manga
             - ./data:/kavita/config
         environment:
-            - TZ=Your/Timezone
+            - TZ=America/Winnipeg
         ports:
             - "5000:5000"
         restart: unless-stopped
