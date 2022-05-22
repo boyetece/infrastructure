@@ -8,7 +8,7 @@ services:
       - "80:80"
     volumes:
       - /nginx/html/:/var/www/html/
-      - /nginx/conf/:/etc/nginx/conf/
+      - /nginx/conf.d/:/etc/nginx/conf.d/
     restart: unless-stopped
 
 
