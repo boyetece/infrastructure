@@ -8,7 +8,7 @@ In this guide you will learn how to:
     Create an Ansible inventory for your Linode infrastructure using the dynamic inventory plugin for Linode.
 
 
-Linode Resource :
+*** Linode Resource : ***
 
 [Linode Provisioning](https://www.linode.com/docs/guides/deploy-linodes-using-ansible/)
 
