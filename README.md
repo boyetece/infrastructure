@@ -5,7 +5,7 @@ Infrastructure automation is the process of reducing human interaction with IT s
 
 IT infrastructure automation tools can control IT elements including servers, storage, network elements, and operating systems (OS), with the goal of improving efficiency of IT operations and staff, with the goal of hands-off operation in most environments including both cloud and on-premises elements of hybrid IT environments.
 
-### REFERENCE: ###
+### Reference: ###
 
 [Infrastucture Automation Definition](https://www.vmware.com/topics/glossary/content/infrastructure-automation.html).
 
