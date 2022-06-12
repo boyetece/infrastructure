@@ -1,19 +1,19 @@
-- name: install httpd package (CentOS)
-   tags: apache,centos,httpd
+- name: install httpd package (AlmaLinux)
+   tags: apache,AlmaLinux,httpd
    dnf:
      name:
        - httpd
        - php
      state: latest
-   when: ansible_distribution == "CentOS"
+   when: ansible_distribution == "AlmaLinux"
  
- - name: start and enable httpd (CentOS)
-   tags: apache,centos,httpd
+ - name: start and enable httpd (AlmaLinux)
+   tags: apache,AlmaLinux,httpd
    service:
      name: httpd
      state: started
      enabled: yes
-   when: ansible_distribution == "CentOS"
+   when: ansible_distribution == "AlmaLinux"
  
  - name: install apache2 package (Ubuntu)
    tags: apache,apache2,ubuntu
@@ -25,16 +25,16 @@
    when: ansible_distribution == "Ubuntu"
  
  - name: change e-mail address for admin
-   tags: apache,centos,httpd
+   tags: apache,AlmaLinux,httpd
    lineinfile:
      path: /etc/httpd/conf/httpd.conf
      regexp: '^ServerAdmin'
      line: ServerAdmin somebody@somewhere.net
-   when: ansible_distribution == "CentOS"
+   when: ansible_distribution == "AlmaLinux"
    register: httpd
  
- - name: restart httpd (CentOS)
-   tags: apache,centos,httpd
+ - name: restart httpd (AlmaLinux)
+   tags: apache,AlmaLinux,httpd
    service:
      name: httpd
      state: restarted
