@@ -7,6 +7,6 @@ IT infrastructure automation tools can control IT elements including servers, st
 
 ### Reference: ###
 
-[Infrastucture Automation Definition](https://www.vmware.com/topics/glossary/content/infrastructure-automation.html).
+[Infrastucture Automation Definition](https://www.ll.mit.edu/sites/default/files/project/doc/2020-07/2Page-InfrastructureAutomation-v.12.pdf).
 
 This site was built using [GitHub Pages](https://docs.github.com/en/enterprise-server@3.3/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
