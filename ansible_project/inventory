@@ -1,8 +1,14 @@
-[servers]
-vps1 ansible_host=192.168.122.81
-vps2 ansible_host=192.168.122.214
-vps3 ansible_host=192.168.122.95
-vps4 ansible_host=192.168.122.81
-vps5 ansible_host=192.168.122.205
-vps6 ansible_host=192.168.122.93
-rhel8.4 ansible_host=192.168.122.230
+[dbservers]
+192.168.122.81
+192.168.122.214
+
+[fileservers]
+192.168.122.95
+192.168.122.81
+
+[webservers]
+192.168.122.205
+192.168.122.93
+
+[workstations]
+192.168.122.230
