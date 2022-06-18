@@ -1,4 +1,4 @@
  - name: add ssh key for devop
    authorized_key:
      user: devop
-     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7/ofWLNBq3+fRn3UmgAizdicLs9vcS4Oj8VSOD1S/ ansible"
+     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMREFOJmKh64Uij+qlaoNr4qG/eF/zsHTF8qE722DYKZ boyet-servers"
