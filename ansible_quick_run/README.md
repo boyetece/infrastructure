@@ -1,6 +1,6 @@
 # Ansible Quick Management #
 
-### When you weant to run a quick yml configuration change ###
+### When you want to run a quick yml configuration change ###
 
 - run the update2.yml using your own root login and password to the target server/s, using `$ ansible-playbook -K update2.yml`
 
