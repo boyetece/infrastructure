@@ -6,4 +6,4 @@
 
 - you can use any other yml file that suites your needs.
 
-- This is the quickest configuration changes to do.
+- This is is the quickest configuration changes to do without creating ssh-keys and defining them into the ansible.cfg file.
