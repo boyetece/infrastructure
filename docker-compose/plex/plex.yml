@@ -15,5 +15,5 @@ services:
     volumes:
     - /home/boyet/plex/plex_config:/config
     - /home/boyet/plex/movie:/data/movies
-    - /home/boyet/plex/photo:/dat
+    - /home/boyet/plex/photo:/data/photos
     - /home/boyet/plex/transcode:/transcode
