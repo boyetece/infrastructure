@@ -1,0 +1,89 @@
+---
+- name: "Deploy web application stack"
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+
+  - name: "Install nginx and nodejs 12 Packages on RHEL"
+    dnf:
+      name:
+        - nginx
+        - nodejs
+      state: present
+      enablerepo: epel
+     when: ansible_os_family == "RedHat"
+
+   - name: "Install NodeJS Dependencies"
+     npm:
+       path: /opt/app
+       name:
+         - express
+         - body-parser
+         - cookie-parser
+         - debug
+         - morgan
+         - serve-favicon
+        state: present
+
+    - name: "Install nginx configuration"
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: "Set selinux http policy"
+      seboolean:
+        name: httpd_can_network_connect
+        state: yes
+        persistent: yes
+      when: ansible_os_family == "RedHat"
+
+    - name: "Deploy WebApp"
+      copy:
+        src: webapp.js
+        dest: /opt/app/webapp.js
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: "Start and enable nginx"
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: "Deploy webapp service unit"
+      template:
+        src: webapp.service.j2
+        dest: /etc/systemd/system/webapp.service
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: "Configure webapp setting"
+      template:
+        src: webapp.conf.j2
+        dest: /etc/webapp.conf
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: "Start and enable webapp"
+      service:
+        name: webapp
+        state: started
+        enabled: yes
+    
+    handlers:
+    - name: "restart webapp"
+      service:
+        name: webapp
+        state: restarted
+
+    - name: "restart nginx"
+      service:
+        name: nginx      
+        state: restarted
