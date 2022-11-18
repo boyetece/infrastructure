@@ -1,9 +1,10 @@
 [servers]
-192.168.122.106
+client2
+nfserver
 
 [servers:vars]
-ansible_user=user
-ansible_ssh_pass=123456789
-ansible_become_pass=123456789
+ansible_user=boyet
+ansible_ssh_pass=rusami@dm1n
+ansible_become_pass=rusami@dm1n
 ansible_port=22
-#ansible_python_interpreter=/usr/bin/python3.6
+ansible_python_interpreter=/usr/bin/python3.9
