@@ -1,0 +1,35 @@
+---
+- hosts: client
+  become: true
+
+    tasks:
+      # Install and configure NFS server and AutoFS utility.
+    - name: Install a list of packages with a list variable
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+        - nfs-utils
+        - autofs
+
+    - name: Create an umbella mount point to automount the user's home directory.
+      file:
+        path: /nfshome
+        state: directory
+        mode: '0755'
+
+    - name: Edit the /etc/auto.master file and add the /nfshome directory.
+      copy:
+        dest: "/etc/auto.master"
+        content: "/nfshome    /etc/auto.master/auto.home"
+
+    - name: Create the "auto.home" file in the "/etc/auto.master.d" directory.
+      file:
+        path: /etc/auto.master.d/auto.home
+        state: touch
+    
+    - name: Edit the "auto.home" file and add the nfs share directory.
+      copy:
+        dest: "/etc/auto.master.d/auto.home"
+        content: "*   -rw     nfserver:/home/&"

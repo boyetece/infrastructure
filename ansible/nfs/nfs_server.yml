@@ -1,0 +1,30 @@
+---
+- hosts: vps1
+  become: true
+
+    tasks:
+      # Install and configure NFS server core utility.
+    - name: Install a list of packages with a list variable
+      yum:
+        name: "{{ packages }}"
+        state: latest
+      vars:
+        packages:
+        - nfs-utils
+
+    - name: Copying configuration file into the /etc directory
+      copy:
+        src: /home/boyet/Documents/infrastructure/ansible/exports.j2
+        dest: /etc/exports
+
+    - name: Start service nfs server, if not started
+      service:
+        name: nfs-server
+        state: started
+        enabled: yes
+        
+    - name: permit traffic in default zone for nfs service
+      firewalld:
+        service: nfs
+        permanent: yes
+        state: enabled
