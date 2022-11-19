@@ -1,0 +1,12 @@
+---
+- name: create local SSH Key for deployment
+  hosts: localhost
+  connection: local
+  remote_user: boyet
+  tasks:
+  - name: generate SSH key"
+    openssh_keypair:
+      path: /tmp/
+      type: ed25519
+      state: present
+      force: no

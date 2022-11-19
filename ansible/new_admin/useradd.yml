@@ -1,0 +1,26 @@
+---
+- hosts: vps1
+  become: true
+
+    tasks:
+    - name: create boyet user
+      user:
+        name: boyet
+        shell: /bin/bash
+        groups: sudo
+        append: yes
+        password: "{{ 'password' | password_hash('sha512') }}"
+      become: yes
+
+    - name: Add boyet user to the sudoers
+      copy:
+        dest: "/etc/sudoers.d/boyet"
+        content: "boyet  ALL=(ALL)  NOPASSWD: ALL"
+      become: yes
+
+    - name: Deploy SSH Key
+      authorized_key: 
+        user: boyet
+        key: "{{ lookup('file', '/tmp/boyet.pub') }}"
+        state: present
+      become: yes
