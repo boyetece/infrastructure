@@ -1,7 +1,7 @@
 # NFS and AutoFS for In-Direct Map share:
 AutoMounting User Home Directories:
 
-    Note: users name with it's correspondinguidandgidmust be the same on both nfs server and nfs client computer.
+    Note: users name with it's corresponding `uid` and `guid` must be the same on both nfs server and nfs client computer.
 
 ## NFS service side:
 
