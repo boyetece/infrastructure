@@ -8,12 +8,25 @@
       tags: always
       group:
         name: support
+        gid: 2004
         state: present
 
-    - name: Create User
+    - name: Create User a 2048-bit SSH key.
       tags: always
       user:
         name: luke
+        uid: 1004
         group: support
         createhome: yes
+        generate_ssh_key: yes
+        ssh_key_bits: 2048
+        ssh_key_file: .ssh/id_rsa
         state: present
+    
+    - name: Add sudo rights for deployment user.
+      lineinfile:
+        dest: /etc/sudoers
+        regexp: '^luke'
+        line: 'luke ALL=(ALL) NOPASSWD: ALL'
+        state: present
+        validate: 'visudo -cf %s'
