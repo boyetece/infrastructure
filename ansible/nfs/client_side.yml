@@ -1,8 +1,7 @@
 ---
 - hosts: client
   become: true
-
-    tasks:
+  tasks:
       # Install and configure NFS server and AutoFS utility.
     - name: Install a list of packages with a list variable
       yum:
@@ -33,3 +32,9 @@
       copy:
         dest: "/etc/auto.master.d/auto.home"
         content: "*   -rw     nfserver:/home/&"
+
+    - name: Start service nfs server, if not started
+      service:
+        name: nfs-server
+        state: started
+        enabled: yes
