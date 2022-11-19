@@ -1,8 +1,7 @@
 ---
 - hosts: vps1
   become: true
-
-    tasks:
+  tasks:
     - name: create boyet user
       user:
         name: boyet
