@@ -1,6 +1,12 @@
 ---
 - hosts: client
   become: true
+  
+  handlers:
+    - import_tasks: handlers/useradd.yml
+    - import_tasks: handlers/update.yml
+  
+  
   tasks:
       # Install and configure NFS server and AutoFS utility.
     - name: Install a list of packages with a list variable
