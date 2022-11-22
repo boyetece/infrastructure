@@ -1,6 +1,13 @@
 ---
-- hosts: vps1
+- name: Install NFS Server
+  hosts: vps1
   become: true
+  
+  handlers:
+    - import_tasks: handlers/useradd.yml
+    - import_tasks: handlers/update.yml
+
+  
   tasks:
     # Install and configure NFS server core utility.
     - name: Install a list of packages with a list variable
@@ -13,7 +20,7 @@
 
     - name: Copying configuration file into the /etc directory
       copy:
-        src: /home/boyet/Documents/infrastructure/ansible/nfs/exports.j2
+        src: /home/boyet/Documents/infrastructure/ansible/nfs/files/exports.j2
         dest: /etc/exports
 
     - name: Start service nfs server, if not started
