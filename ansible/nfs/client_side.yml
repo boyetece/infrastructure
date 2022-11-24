@@ -3,7 +3,7 @@
   become: true
   
   handlers:
-  # - import_task: patch_linux.yml
+  # - include_task: patch_linux.yml
   #   when: os is match("rhel.*")
     - import_tasks: handlers/useradd.yml
     - import_tasks: handlers/update.yml
