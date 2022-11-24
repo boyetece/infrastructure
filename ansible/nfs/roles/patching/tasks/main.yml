@@ -1,7 +1,8 @@
 ---
 - name: Patch Linux
   include_tasks: patch_linux.yml
-  when: os is match("rhel.*")
+  when: os is match("AlmaLinux 9.1")
+  #("rhel.*")
 
 - name: Patch Windows
   include_tasks: patch_windows.yml
