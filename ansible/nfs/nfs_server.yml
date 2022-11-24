@@ -4,7 +4,7 @@
   become: true
   
   handlers:
-  # - include_task: /roles/patching/tasks/main.yml
+    - import_tasks: roles/patching/tasks/main.yml
     - import_tasks: handlers/useradd.yml
     - import_tasks: handlers/update.yml
 
