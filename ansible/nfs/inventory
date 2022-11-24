@@ -5,7 +5,7 @@ client ansible_host=192.168.122.147
 
 [servers:vars]
 ansible_user=root
-ansible_ssh_pass=111111
-ansible_become_pass=111111
+ansible_ssh_pass=11111111
+ansible_become_pass=11111111
 ansible_port=22
 # ansible_python_interpreter=/usr/bin/python3.6
